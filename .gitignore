@@ -8,6 +8,7 @@
 .idea_modules/
 *.ipr
 *.iws
+*.csv
 nbproject/private/
 build/
 nbbuild/
