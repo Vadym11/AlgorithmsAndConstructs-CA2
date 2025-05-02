@@ -8,15 +8,15 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        Manager HRManager = Utils.generateRandomManager(DepartmentNames.HR.getFullName());;
+        Manager HRManager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());;
         DepartmentHR HRDepartment = new DepartmentHR(HRManager);
 
-        Manager ITManager = Utils.generateRandomManager(DepartmentNames.IT.getFullName());
+        Manager ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
         DepartmentIT ITDepartment = new DepartmentIT(ITManager);
 
-//        Employee employee = Utils.generateRandomEmployeeCustomName("Aaron", "Man", HRDepartment, 3133.33);
-        Manager manager = Utils.generateRandomManager(DepartmentNames.HR.getFullName());
-        Utils.writeToCSV(List.of(manager));
+        Employee employee = Utils.generateRandomEmployee("Aaron", "Man", HRDepartment);
+        Manager manager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());
+//        Utils.writeToCSV(List.of(manager));
 
 //        List<String> found = Utils.searchRecords("Albertin", 0);
 

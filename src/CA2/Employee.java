@@ -48,6 +48,6 @@ public class Employee extends Worker implements GetDivisions{
                 getPositionType() + "," +
                 getDivisionsAsString() + "," +
                 getDepartment() + "," +
-                getJobTitle() + "\n";
+                getJobTitle();
     }
 }

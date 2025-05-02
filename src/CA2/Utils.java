@@ -57,14 +57,7 @@ public class Utils {
         return List.of(department.generateDivisions().get(random.nextInt(department.generateDivisions().size())).getName());
     }
 
-    public static Employee generateRandomEmployee(Department department, double salary) {
-        String firstName = generateRandomName();
-        String lastName = generateRandomLastName();
-
-        return generateRandomEmployeeCustomName(firstName, lastName, department, salary);
-    }
-
-    public static Employee generateRandomEmployeeCustomName(String firstName, String lastName, Department department, double salary) {
+    public static Employee generateRandomEmployeeCustomNameSalary(String firstName, String lastName, Department department, double salary) {
         String jobTitle = "No Department Provided";
         if (department.getDepartmentName().equals(DepartmentNames.HR.getFullName())) {
             jobTitle = List.of("Technical Recruiter", "Vendor Coordination", "Employee Engagement")
@@ -87,9 +80,24 @@ public class Utils {
         );
     }
 
-    public static Manager generateRandomManager(String departmentName) {
+    public static Employee generateRandomEmployeeForDepartmentInit(Department department, double salary) {
         String firstName = generateRandomName();
         String lastName = generateRandomLastName();
+
+        return generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
+    }
+
+    public static Employee generateRandomEmployee(String firstName, String lastName, Department department) {
+        double salary = random.nextDouble(2000.00, 5000.00);
+
+        Employee e = generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
+        System.out.println("Employee " + firstName + " " + lastName + " has been generated!");
+        printCSVAsTable(List.of(e.getInfo()));
+
+        return e;
+    }
+
+    public static Manager generateRandomManager(String firstName, String lastName, String departmentName) {
         List<String> divisions = new ArrayList<>();
         if (departmentName.equals(DepartmentNames.IT.getFullName())) {
             divisions = Arrays.stream(ITDivisionNames.values())
@@ -112,6 +120,13 @@ public class Utils {
                 departmentName,
                 "Head of Department");
     }
+
+    public static Manager generateRandomManagerDepartment(String departmentName) {
+        String firstName = generateRandomName();
+        String lastName = generateRandomLastName();
+
+        return generateRandomManager(firstName, lastName, departmentName);
+    };
 
     public static void writeToCSV(List<Employee> employees) {
         File file = new File(MY_FILE_NAME);
@@ -152,17 +167,17 @@ public class Utils {
             System.out.println("Error - unable to find file " + MY_FILE_NAME);
         }
 
-        return fileList;
+        return fileList.subList(0, fileList.size() - 1);
     }
 
     public static void insertionSortCustom(List<String> myList, int sortOption) {
         int pos;
         String keyElement;
 
-        for (int i = 1; i < myList.size(); i++) {
+        for (int i = 0; i < myList.size(); i++) {
             keyElement = myList.get(i);
             pos = i;
-            while (pos > 1 && (myList.get(pos - 1).split(",")[sortOption])
+            while (pos > 0 && (myList.get(pos - 1).split(",")[sortOption])
                     .compareTo(keyElement.split(",")[sortOption]) > 0) {
                 String elemAtPosMinusOne = myList.get(pos - 1);
                 myList.set(pos, elemAtPosMinusOne);
@@ -177,7 +192,7 @@ public class Utils {
 
         insertionSortCustom(fileList, sortOption);
 
-        printCSVAsTable(fileList.subList(0, records + 1));
+        printCSVAsTable(fileList.subList(0, records));
     }
 
     public static int binarySearchRecursiveCustom(List<String> myList, int option, String key, int start, int end) {
@@ -254,8 +269,9 @@ public class Utils {
     public static void printCSVAsTable(List<String> file) {
         List<String[]> fileArray = new ArrayList<>();
 
+        fileArray.add("No,First Name,Last Name,Gender,Email,Salary,Position,Division(s),Department,Job Title".split(","));
         for (int i = 0; i < file.size(); i++) {
-            String lineNumber = i == 0 ? "No," :  i + ",";
+            String lineNumber = i + 1 + ",";
             fileArray.add(lineNumber.concat(file.get(i)).split(","));
         }
         // Determine column widths
