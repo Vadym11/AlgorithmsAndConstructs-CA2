@@ -155,21 +155,29 @@ public class Utils {
         return fileList;
     }
 
-    public static void insertionSortCustom(List<String> myList, int option) {
+    public static void insertionSortCustom(List<String> myList, int sortOption) {
         int pos;
         String keyElement;
 
         for (int i = 1; i < myList.size(); i++) {
             keyElement = myList.get(i);
             pos = i;
-            while (pos > 0 && (myList.get(pos - 1).split(",")[option])
-                    .compareTo(keyElement.split(",")[option]) > 0) {
+            while (pos > 1 && (myList.get(pos - 1).split(",")[sortOption])
+                    .compareTo(keyElement.split(",")[sortOption]) > 0) {
                 String elemAtPosMinusOne = myList.get(pos - 1);
                 myList.set(pos, elemAtPosMinusOne);
                 pos = pos - 1;
             }
             myList.set(pos, keyElement);
         }
+    }
+
+    public static void sortAndPrint(int records, int sortOption) {
+        List<String> fileList = readFile();
+
+        insertionSortCustom(fileList, sortOption);
+
+        printCSVAsTable(fileList.subList(0, records + 1));
     }
 
     public static int binarySearchRecursiveCustom(List<String> myList, int option, String key, int start, int end) {
@@ -245,10 +253,11 @@ public class Utils {
 
     public static void printCSVAsTable(List<String> file) {
         List<String[]> fileArray = new ArrayList<>();
-        for (String elem : file) {
-            fileArray.add(elem.split(","));
-        }
 
+        for (int i = 0; i < file.size(); i++) {
+            String lineNumber = i == 0 ? "No," :  i + ",";
+            fileArray.add(lineNumber.concat(file.get(i)).split(","));
+        }
         // Determine column widths
         int numCols = fileArray.get(0).length;
         int[] colWidths = new int[numCols];

@@ -14,11 +14,14 @@ public class MainApp {
         Manager ITManager = Utils.generateRandomManager(DepartmentNames.IT.getFullName());
         DepartmentIT ITDepartment = new DepartmentIT(ITManager);
 
-        Employee employee = Utils.generateRandomEmployeeCustomName("Baboon", "Healey", HRDepartment, 3333.33);
-        Utils.writeToCSV(List.of(employee));
+//        Employee employee = Utils.generateRandomEmployeeCustomName("Aaron", "Man", HRDepartment, 3133.33);
+        Manager manager = Utils.generateRandomManager(DepartmentNames.HR.getFullName());
+        Utils.writeToCSV(List.of(manager));
 
-        List<String> found = Utils.searchRecords("Baboon", 0);
+//        List<String> found = Utils.searchRecords("Albertin", 0);
 
-        Utils.printCSVAsTable(found);
+//        Utils.printCSVAsTable(Utils.searchRecords("People Operations", 7));
+
+        Utils.sortAndPrint(10, 0);
     }
 }
