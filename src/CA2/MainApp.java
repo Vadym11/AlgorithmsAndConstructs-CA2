@@ -8,10 +8,10 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        Manager HRManager = Utils.generateRandomManager(DepartmentNames.HR.getFulltName());;
+        Manager HRManager = Utils.generateRandomManager(DepartmentNames.HR.getFullName());;
         DepartmentHR HRDepartment = new DepartmentHR(HRManager);
 
-        Manager ITManager = Utils.generateRandomManager(DepartmentNames.IT.getFulltName());
+        Manager ITManager = Utils.generateRandomManager(DepartmentNames.IT.getFullName());
         DepartmentIT ITDepartment = new DepartmentIT(ITManager);
 
 //        for (Employee employee : HRDepartment.getEmployees()) {

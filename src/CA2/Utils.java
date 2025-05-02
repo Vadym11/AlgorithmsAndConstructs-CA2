@@ -50,10 +50,10 @@ public class Utils {
 
     public static Employee generateRandomEmployeeCustomName(String firstName, String lastName, Department department, double salary) {
         String jobTitle = "No Department Provided";
-        if (department.getDepartmentName().equals(DepartmentNames.HR.getFulltName())) {
+        if (department.getDepartmentName().equals(DepartmentNames.HR.getFullName())) {
             jobTitle = List.of("Technical Recruiter", "Vendor Coordination", "Employee Engagement")
                     .get(random.nextInt(3));
-        } else if (department.getDepartmentName().equals(DepartmentNames.IT.getFulltName())) {
+        } else if (department.getDepartmentName().equals(DepartmentNames.IT.getFullName())) {
             jobTitle = List.of("Backend Developer", "Frontend Developer", "Automation QA")
                     .get(random.nextInt(3));
         }
@@ -75,11 +75,11 @@ public class Utils {
         String firstName = generateRandomName();
         String lastName = generateRandomLastName();
         List<String> divisions = new ArrayList<>();
-        if (departmentName.equals(DepartmentNames.IT.getFulltName())) {
+        if (departmentName.equals(DepartmentNames.IT.getFullName())) {
             divisions = Arrays.stream(ITDivisionNames.values())
                     .map(ITDivisionNames::getDivisionName)
                     .collect(Collectors.toList());
-        } else if (departmentName.equals(DepartmentNames.HR.getFulltName())) {
+        } else if (departmentName.equals(DepartmentNames.HR.getFullName())) {
             divisions = Arrays.stream(HRDivisionNames.values())
                     .map(HRDivisionNames::getDivisionName)
                     .collect(Collectors.toList());

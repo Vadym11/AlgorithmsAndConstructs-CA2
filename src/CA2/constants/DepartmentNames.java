@@ -12,7 +12,7 @@ public enum DepartmentNames {
         this.departmentName = department;
     }
 
-    public String getFulltName() {
+    public String getFullName() {
         return departmentName;
     }
 }
