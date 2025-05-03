@@ -19,7 +19,7 @@ public abstract class Department implements GetDivisions{
     /**
      * Generate employees belonging to divisions generated in generateDivisions()
      */
-    public abstract List<Employee> generateEmployees();
+    protected abstract List<Employee> generateEmployees();
 
     public abstract List<Division> generateDivisions();
 

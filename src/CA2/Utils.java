@@ -14,12 +14,11 @@ public class Utils {
     static Random random = new Random();
 
     static String[] FIRST_NAMES = {
-            "Abby", "Abdul", "Ada", "Addison", "Adelbert", "Adelina", "Adella", "Adolf", "Adolpho", "Adriane",
-            "Adrianne", "Adrien", "Aigneis", "Ailee", "Alex", "Alice", "Aaron", "Ava",
-            "Benjamin", "Bianca", "Cameron", "Cassandra", "Dante", "Diana", "Edward", "Ella", "Felix", "Fiona",
-            "George", "Grace", "Henry", "Hazel", "Isaac", "Ivy", "Jacob", "Jasmine", "Kevin", "Kira",
-            "Leo", "Luna", "Miles", "Mia", "Nathan", "Nora", "Oscar", "Olivia", "Paul", "Piper",
-            "Quinn", "Quincy"
+            "Abby", "Benjamin", "Cassandra", "Derek", "Ella", "Felix", "Grace", "Hannah", "Isaac", "Jasmine",
+            "Kevin", "Luna", "Mason", "Nora", "Oliver", "Piper", "Quinn", "Riley", "Sophia", "Thomas",
+            "Uma", "Victor", "Willow", "Xander", "Yasmin", "Zachary", "Adrian", "Bella", "Caleb", "Diana",
+            "Ethan", "Freya", "Gavin", "Hazel", "Ivy", "Jacob", "Kira", "Leo", "Miles", "Naomi",
+            "Oscar", "Paige", "Quincy", "Ryan", "Stella", "Tristan", "Ulysses", "Violet", "Wesley", "Zoey"
     };
 
     static String[] LAST_NAMES = {
@@ -32,6 +31,10 @@ public class Utils {
     };
 
     static String[] DOMAINS = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
+
+    private static String getTableHeader() {
+        return "";
+    }
 
     private static String generateRandomName() {
         return FIRST_NAMES[random.nextInt(FIRST_NAMES.length)];
@@ -90,11 +93,11 @@ public class Utils {
     public static Employee generateRandomEmployee(String firstName, String lastName, Department department) {
         double salary = random.nextDouble(2000.00, 5000.00);
 
-        Employee e = generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
+        Employee employee = generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
         System.out.println("Employee " + firstName + " " + lastName + " has been generated!");
-        printCSVAsTable(List.of(e.getInfo()));
+        printCSVAsTable(List.of(employee.getInfo()));
 
-        return e;
+        return employee;
     }
 
     public static Manager generateRandomManager(String firstName, String lastName, String departmentName) {
@@ -139,7 +142,7 @@ public class Utils {
             }
             // Write each user's data
             for (Employee employee : employees) {
-                writer.write(employee.getInfo());
+                writer.write(employee.getInfo() + "\n");
             }
             System.out.println("Data successfully written to " + MY_FILE_NAME);
         } catch (IOException e) {
@@ -161,13 +164,16 @@ public class Utils {
                 fileList.add(input);
                 input = myFile.readLine();
             }
-            System.out.println("Finished reading from File");
+            System.out.println("Finished reading from " + MY_FILE_NAME);
+
+            // return file content without header
+            return fileList.subList(1, fileList.size() - 1);
         }catch (Exception e){
             //error opening file
             System.out.println("Error - unable to find file " + MY_FILE_NAME);
         }
 
-        return fileList.subList(0, fileList.size() - 1);
+        return null;
     }
 
     public static void insertionSortCustom(List<String> myList, int sortOption) {
@@ -190,9 +196,10 @@ public class Utils {
     public static void sortAndPrint(int records, int sortOption) {
         List<String> fileList = readFile();
 
-        insertionSortCustom(fileList, sortOption);
-
-        printCSVAsTable(fileList.subList(0, records));
+        if (fileList != null) {
+            insertionSortCustom(fileList, sortOption);
+            printCSVAsTable(fileList.subList(0, records));
+        }
     }
 
     public static int binarySearchRecursiveCustom(List<String> myList, int option, String key, int start, int end) {
@@ -252,7 +259,7 @@ public class Utils {
         List<String> recordsFound = new ArrayList<>();
         List<String> fileList = readFile();
 
-        // add header to the records found
+        //TODO: add header to the records found
         recordsFound.add(fileList.get(0));
         insertionSortCustom(fileList, option);
 

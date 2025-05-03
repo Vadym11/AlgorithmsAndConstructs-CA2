@@ -13,7 +13,7 @@ public class DepartmentIT extends Department{
     }
 
     @Override
-    public List<Employee> generateEmployees() {
+    protected List<Employee> generateEmployees() {
         Random random = new Random();
         List<Employee> listOfEmployees = new ArrayList<>();
         int numOfEmployees = random.nextInt(25, 35);

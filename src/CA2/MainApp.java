@@ -14,9 +14,9 @@ public class MainApp {
         Manager ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
         DepartmentIT ITDepartment = new DepartmentIT(ITManager);
 
-        Employee employee = Utils.generateRandomEmployee("Aaron", "Man", HRDepartment);
+//        Employee employee = Utils.generateRandomEmployee("Aaron", "Man", HRDepartment);
         Manager manager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());
-//        Utils.writeToCSV(List.of(manager));
+//        Utils.writeToCSV(HRDepartment.generateEmployees());
 
 //        List<String> found = Utils.searchRecords("Albertin", 0);
 
