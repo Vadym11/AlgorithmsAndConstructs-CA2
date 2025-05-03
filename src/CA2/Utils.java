@@ -33,7 +33,7 @@ public class Utils {
     static String[] DOMAINS = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
 
     private static String getTableHeader() {
-        return "";
+        return "First Name,Last Name,Gender,Email,Salary,Position,Division(s),Department,Job Title";
     }
 
     private static String generateRandomName() {
@@ -138,7 +138,7 @@ public class Utils {
         try (FileWriter writer = new FileWriter(MY_FILE_NAME, true)) { // Append mode = true
             if (!fileExists) {
                 // Write header only if file doesn't exist
-                writer.write("First Name,Last Name,Gender,Email,Salary,Position,Division(s),Department,Job Title\n");
+                writer.write(getTableHeader().concat("\n"));
             }
             // Write each user's data
             for (Employee employee : employees) {
@@ -224,7 +224,8 @@ public class Utils {
 
         // First, find one match using binary search
         int matchIndex = binarySearchRecursiveCustom(myList, option, key, start, end);
-        if (matchIndex == -1) return result;
+        // return null if search did not find matches
+        if (matchIndex == -1) return null;
 
         // Add the match
         result.add(matchIndex);
@@ -256,61 +257,79 @@ public class Utils {
 
 
     public static List<String> searchRecords(String searchQuery, int option) {
-        List<String> recordsFound = new ArrayList<>();
         List<String> fileList = readFile();
 
-        //TODO: add header to the records found
-        recordsFound.add(fileList.get(0));
-        insertionSortCustom(fileList, option);
+        if (fileList != null) {
+//            System.out.println("File list is not null! Its size is: " + fileList.size());
+            List<String> recordsFound = new ArrayList<>();
 
-        List<Integer> foundIndexes = binarySearchAllDuplicates(
-                fileList, option, searchQuery, 0, (fileList.size() - 1));
+            insertionSortCustom(fileList, option);
 
-        for (int index : foundIndexes) {
-            recordsFound.add(fileList.get(index));
+            List<Integer> foundIndexes = binarySearchAllDuplicates(
+                    fileList, option, searchQuery, 0, (fileList.size() - 1));
+
+            if (foundIndexes != null) {
+                for (int index : foundIndexes) {
+                    recordsFound.add(fileList.get(index));
+                }
+
+                return recordsFound;
+            } else {
+                System.out.println("No records found for query: " + searchQuery);
+            }
         }
 
-        return recordsFound;
+        return null;
+    }
+
+    public static void searchAndPrint(String query, int option) {
+        printCSVAsTable(searchRecords(query, option));
     }
 
     public static void printCSVAsTable(List<String> file) {
         List<String[]> fileArray = new ArrayList<>();
 
-        fileArray.add("No,First Name,Last Name,Gender,Email,Salary,Position,Division(s),Department,Job Title".split(","));
-        for (int i = 0; i < file.size(); i++) {
-            String lineNumber = i + 1 + ",";
-            fileArray.add(lineNumber.concat(file.get(i)).split(","));
-        }
-        // Determine column widths
-        int numCols = fileArray.get(0).length;
-        int[] colWidths = new int[numCols];
-        for (String[] row : fileArray) {
-            for (int i = 0; i < numCols; i++) {
-                colWidths[i] = Math.max(colWidths[i], row[i].length());
+        if (file != null) {
+            fileArray.add("No,".concat(getTableHeader()).split(","));
+            for (int i = 0; i < file.size(); i++) {
+                String lineNumber = i + 1 + ",";
+                fileArray.add(lineNumber.concat(file.get(i)).split(","));
             }
-        }
-
-        // Build separator row
-        StringBuilder separator = new StringBuilder();
-        for (int width : colWidths) {
-            separator.append("+").append("-".repeat(width + 2));
-        }
-        separator.append("+");
-        String sepRow = separator.toString();
-
-        // Print top border
-        System.out.println(sepRow);
-
-        // Print rows with formatting
-        for (String[] row : fileArray) {
-            System.out.print("|");
-            for (int i = 0; i < numCols; i++) {
-                System.out.printf(" %-" + colWidths[i] + "s |", row[i]);
+            // Determine column widths
+            int numCols = fileArray.get(0).length;
+            int[] colWidths = new int[numCols];
+            for (String[] row : fileArray) {
+                for (int i = 0; i < numCols; i++) {
+                    colWidths[i] = Math.max(colWidths[i], row[i].length());
+                }
             }
-            System.out.println();
 
-            // Print separator after header and last row
+            // Build separator row
+            StringBuilder separator = new StringBuilder();
+            for (int width : colWidths) {
+                separator.append("+").append("-".repeat(width + 2));
+            }
+            separator.append("+");
+            String sepRow = separator.toString();
+
+            // Print top border
             System.out.println(sepRow);
-        }
+
+            // Print rows with formatting
+            for (String[] row : fileArray) {
+                System.out.print("|");
+                for (int i = 0; i < numCols; i++) {
+                    System.out.printf(" %-" + colWidths[i] + "s |", row[i]);
+                }
+                System.out.println();
+
+                // Print separator after header and last row
+                System.out.println(sepRow);
+                }
+            }
+        //TODO: think if this is needed
+//        else {
+//            System.out.println("No records to print.");
+//        }
     }
 }
