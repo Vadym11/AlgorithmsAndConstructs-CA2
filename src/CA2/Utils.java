@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public class Utils {
 
-    private static final String MY_FILE_NAME = filename();
+    private static final String EMPLOYEES_FILE_NAME = filename();
 
-    static String[] FIRST_NAMES = {
+    private static final String[] FIRST_NAMES = {
             "Abby", "Benjamin", "Cassandra", "Derek", "Ella", "Felix", "Grace", "Hannah", "Isaac", "Jasmine",
             "Kevin", "Luna", "Mason", "Nora", "Oliver", "Piper", "Quinn", "Riley", "Sophia", "Thomas",
             "Uma", "Victor", "Willow", "Xander", "Yasmin", "Zachary", "Adrian", "Bella", "Caleb", "Diana",
@@ -21,7 +21,7 @@ public class Utils {
             "Oscar", "Paige", "Quincy", "Ryan", "Stella", "Tristan", "Ulysses", "Violet", "Wesley", "Zoey"
     };
 
-    static String[] LAST_NAMES = {
+    private static final String[] LAST_NAMES = {
             "Lulham", "Siaskowski", "Blinkhorn", "Tamburo", "Hartzenberg", "Coniam", "Field", "Carthew", "Ramsey", "Alderton",
             "Pattle", "Emblow", "Witchell", "Forsdicke", "Chrispin", "Johnson", "Smith", "Williams",
             "Brown", "Taylor", "Davies", "Evans", "Wilson", "Moore", "Anderson", "Thomas", "Jackson", "White",
@@ -30,9 +30,9 @@ public class Utils {
             "Kelly", "Reed"
     };
 
-    static String[] DOMAINS = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
+    private static final String[] DOMAINS = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
 
-    static Random random = new Random();
+    private static final Random random = new Random();
 
     private static String getTableHeader() {
         return "First Name,Last Name,Gender,Email,Salary,Department,Position,Job Title,Division(s)";
@@ -90,6 +90,10 @@ public class Utils {
         );
     }
 
+    public static String getEmployeesFileName() {
+        return EMPLOYEES_FILE_NAME;
+    }
+
     public static Employee generateRandomEmployeeForDepartmentInit(Department department, double salary) {
         String firstName = generateRandomName();
         String lastName = generateRandomLastName();
@@ -139,10 +143,10 @@ public class Utils {
     };
 
     public static void writeToCSV(List<Employee> employees) {
-        File file = new File(MY_FILE_NAME);
+        File file = new File(EMPLOYEES_FILE_NAME);
         boolean fileExists = file.exists();
 
-        try (FileWriter writer = new FileWriter(MY_FILE_NAME, true)) { // Append mode = true
+        try (FileWriter writer = new FileWriter(EMPLOYEES_FILE_NAME, true)) { // Append mode = true
             if (!fileExists) {
                 // Write header only if file doesn't exist
                 writer.write(getTableHeader().concat("\n"));
@@ -151,7 +155,7 @@ public class Utils {
             for (Employee employee : employees) {
                 writer.write(employee.getInfo() + "\n");
             }
-            System.out.println("Data successfully written to " + MY_FILE_NAME);
+//            System.out.println("Data successfully written to " + MY_FILE_NAME);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
@@ -159,7 +163,7 @@ public class Utils {
     }
 
     public static List<String> readEmployeeFile() {
-        return readFileWithFilename(MY_FILE_NAME);
+        return readFileWithFilename(EMPLOYEES_FILE_NAME);
     }
 
     public static List<String> readApplicantsFile() {
@@ -179,7 +183,7 @@ public class Utils {
                 fileList.add(input);
                 input = myFile.readLine();
             }
-            System.out.println("Finished reading from " + filename);
+//            System.out.println("Finished reading from " + filename);
 
             // return file content without header
             return fileList.subList(1, fileList.size() - 1);
@@ -301,7 +305,7 @@ public class Utils {
                 for (int index : foundIndexes) {
                     recordsFound.add(fileList.get(index));
                 }
-                System.out.println(recordsFound.size() + " records found:");
+                System.out.println("Search finished. " + recordsFound.size() + " records found:");
 
                 return recordsFound;
             } else {

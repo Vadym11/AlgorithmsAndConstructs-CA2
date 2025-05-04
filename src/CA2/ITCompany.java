@@ -25,6 +25,7 @@ public class ITCompany {
         Utils.writeToCSV(ITDepartment.getEmployees());
         Utils.writeToCSV(HRDepartment.getEmployees());
         Utils.writeToCSV(List.of(HRManager, ITManager));
+        System.out.println("Data successfully written to " + Utils.getEmployeesFileName());
     }
 
     public void searchEmployee(String query, int option) {

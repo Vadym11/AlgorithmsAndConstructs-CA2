@@ -19,7 +19,6 @@ public class ITCompanyApp {
 
         if (userChoice == 0) {
             company.writeAllEmployeesToFile();
-            System.out.println("All employees have been written to the employee.csv file.");
             employeeFileGenerated = true;
         } else {
             System.out.println("Employees have not been written to a file.");
@@ -31,7 +30,7 @@ public class ITCompanyApp {
                 System.out.println(option.getDescription());
             }
 
-            System.out.print("Enter your choice:\n");
+            System.out.print("Enter your choice: ");
             while (!sc.hasNextInt()) {
                 System.out.println("Invalid input! Please enter a number.");
                 sc.next();
@@ -45,11 +44,10 @@ public class ITCompanyApp {
                 System.out.println("Invalid choice, please enter a number from 1 to 4.");
                 continue;
             }
-            // clear scanner
-//            sc.nextLine();
 
             switch (selectedOption) {
                 case SORT -> {
+                    sc.nextLine(); // clear scanner
                     System.out.println("Which file would you like to sort? Enter 0 for EMPLOYEE file or 1 for APPLICANTS file?");
                     if (!employeeFileGenerated) {
                         System.out.println("If you enter 0 employee.csv file will be created and all employees will be written to it.");
