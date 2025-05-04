@@ -50,8 +50,9 @@ public class ITCompanyApp {
 
             switch (selectedOption) {
                 case SORT -> {
-                    System.out.println("Which file would you like to sort? Enter 0 for EMPLOYEE file or 1 for APPLICANTS file?\n" +
-                            "If you enter 0 employee.csv file will be created and all employees will be written to it.");
+                    System.out.println("Which file would you like to sort? Enter 0 for EMPLOYEE file or 1 for APPLICANTS file?");
+                    if (!employeeFileGenerated) System.out.println("If you enter 0 employee.csv file will be created and all employees will be written to it.");
+
                     userChoice = Utils.getUserChoice(sc);
                     if (userChoice == 0) {
                         if (!employeeFileGenerated) {
