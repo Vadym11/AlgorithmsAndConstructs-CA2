@@ -8,23 +8,27 @@ import java.util.List;
 public class ITCompany {
 
     private final String companyName;
-    private Manager HRManager;
-    private Manager ITManager;
-    private DepartmentHR HRDepartment;
-    private DepartmentIT ITDepartment;
+    private final Manager HRManager;
+    private final Manager ITManager;
+    private final Manager PDManager;
+    private final DepartmentHR HRDepartment;
+    private final DepartmentIT ITDepartment;
+    private final DepartmentPD PDDepartment;
 
     public ITCompany(String companyName) {
         this.companyName = companyName;
         HRManager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());
         ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
+        PDManager = Utils.generateRandomManagerDepartment(DepartmentNames.PD.getFullName());
         HRDepartment = new DepartmentHR(HRManager);
         ITDepartment = new DepartmentIT(ITManager);
+        PDDepartment = new DepartmentPD(PDManager);
     }
 
     public void writeAllEmployeesToFile() {
         Utils.writeToCSV(ITDepartment.getEmployees());
         Utils.writeToCSV(HRDepartment.getEmployees());
-        Utils.writeToCSV(List.of(HRManager, ITManager));
+        Utils.writeToCSV(List.of(HRManager, ITManager, PDManager));
         System.out.println("Data successfully written to " + Utils.getEmployeesFileName());
     }
 

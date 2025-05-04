@@ -19,8 +19,8 @@ public class DepartmentHR extends Department{
         int numOfEmployees = random.nextInt(20,30);
 
         for (int i = 0; i < numOfEmployees; i++) {
-            double bonusCoefficient = numOfEmployees > 5 ? 1.3 : 1.2;
-            double salary = random.nextDouble(1000, 1111.00 * bonusCoefficient);;
+            double bonusCoefficient = numOfEmployees > 25 ? 1.3 : 1.2;
+            double salary = random.nextDouble(1000, 1111.00) * bonusCoefficient;
             listOfEmployees.add(Utils.generateRandomEmployeeForDepartmentInit(this, salary));
         }
 

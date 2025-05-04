@@ -1,14 +1,14 @@
 package CA2;
 
-import CA2.constants.ITDivisionNames;
+import CA2.constants.PDDivisionNames;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DepartmentIT extends Department{
+public class DepartmentPD extends Department{
 
-    public DepartmentIT(Manager manager) {
+    public DepartmentPD(Manager manager) {
         super(manager);
     }
 
@@ -16,11 +16,11 @@ public class DepartmentIT extends Department{
     protected List<Employee> generateEmployees() {
         Random random = new Random();
         List<Employee> listOfEmployees = new ArrayList<>();
-        int numOfEmployees = random.nextInt(25, 35);
+        int numOfEmployees = random.nextInt(20,30);
 
         for (int i = 0; i < numOfEmployees; i++) {
-            double bonusCoefficient = numOfEmployees > 27 ? 1.4 : 1.3;
-            double salary = random.nextDouble(1000, 3111.00) * bonusCoefficient;
+            double bonusCoefficient = numOfEmployees > 25 ? 1.35 : 1.25;
+            double salary = random.nextDouble(1300, 1411.00) * bonusCoefficient;
             listOfEmployees.add(Utils.generateRandomEmployeeForDepartmentInit(this, salary));
         }
 
@@ -30,7 +30,7 @@ public class DepartmentIT extends Department{
     @Override
     public List<Division> generateDivisions() {
         List<Division> listOfDivisions = new ArrayList<>();
-        for (ITDivisionNames c : ITDivisionNames.values()) {
+        for (PDDivisionNames c : PDDivisionNames.values()) {
             listOfDivisions.add(new Division(c.getDivisionName()));
         }
 
