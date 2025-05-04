@@ -272,9 +272,15 @@ public class Utils {
         return result;
     }
 
+    public static void searchAndPrintEmployees(String searchQuery, int option) {
+        printCSVAsTable(searchRecords(searchQuery, option, readEmployeeFile()));
+    }
 
-    public static List<String> searchRecords(String searchQuery, int option) {
-        List<String> fileList = readEmployeeFile();
+    public static void searchAndPrintApplicants(String searchQuery, int option) {
+        printCSVAsTable(searchRecords(searchQuery, option, readApplicantsFile()));
+    }
+
+    public static List<String> searchRecords(String searchQuery, int option, List<String> fileList) {
 
         if (fileList != null) {
             List<String> recordsFound = new ArrayList<>();
@@ -288,6 +294,7 @@ public class Utils {
                 for (int index : foundIndexes) {
                     recordsFound.add(fileList.get(index));
                 }
+                System.out.println(recordsFound.size() + " records found:");
 
                 return recordsFound;
             } else {
@@ -298,19 +305,17 @@ public class Utils {
         return null;
     }
 
-    public static void searchAndPrint(String query, int option) {
-        printCSVAsTable(searchRecords(query, option));
-    }
-
     public static void printCSVAsTable(List<String> file) {
         List<String[]> fileArray = new ArrayList<>();
 
         if (file != null) {
             fileArray.add("No,".concat(getTableHeader()).split(","));
             // change last column name in header to "Company" if printing Applicants_Form.txt file
-            if (file.get(0).split(",")[8].equals("DataVision")) {
+            String lastColumnName = file.get(0).split(",")[8];
+            if (lastColumnName.equals("DataVision") || lastColumnName.equals("TechInnovators")) {
                 fileArray.get(0)[9] = "Company";
             }
+
             for (int i = 0; i < file.size(); i++) {
                 String lineNumber = i + 1 + ",";
                 fileArray.add(lineNumber.concat(file.get(i)).split(","));

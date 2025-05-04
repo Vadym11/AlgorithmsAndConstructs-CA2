@@ -19,7 +19,6 @@ public class ITCompany {
         ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
         HRDepartment = new DepartmentHR(HRManager);
         ITDepartment = new DepartmentIT(ITManager);
-//        this.writeAllEmployeesToFile();
     }
 
     public void writeAllEmployeesToFile() {
@@ -29,7 +28,11 @@ public class ITCompany {
     }
 
     public void searchEmployee(String query, int option) {
-        Utils.searchAndPrint(query, option);
+        Utils.searchAndPrintEmployees(query, option);
+    }
+
+    public void sortAndPrintEmployees() {
+        Utils.sortAndPrintEmployeeFile(20, 0);
     }
 
     public void getDepartmentEmployees(String departmentName) {
