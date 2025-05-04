@@ -28,6 +28,7 @@ public class ITCompany {
     public void writeAllEmployeesToFile() {
         Utils.writeToCSV(ITDepartment.getEmployees());
         Utils.writeToCSV(HRDepartment.getEmployees());
+        Utils.writeToCSV(PDDepartment.getEmployees());
         Utils.writeToCSV(List.of(HRManager, ITManager, PDManager));
         System.out.println("Data successfully written to " + Utils.getEmployeesFileName());
     }
@@ -41,11 +42,13 @@ public class ITCompany {
     }
 
     public void getDepartmentEmployees(String departmentName) {
-        Department department = null;
+        Department department;
         if (departmentName.equals(DepartmentNames.HR.getFullName())) {
             department = HRDepartment;
         } else if (departmentName.equals(DepartmentNames.IT.getFullName())) {
             department = ITDepartment;
+        } else {
+            department = PDDepartment;
         }
 
         List<String> employeeNames = new ArrayList<>();
@@ -73,5 +76,13 @@ public class ITCompany {
 
     public DepartmentIT getITDepartment() {
         return ITDepartment;
+    }
+
+    public Manager getPDManager() {
+        return PDManager;
+    }
+
+    public DepartmentPD getPDDepartment() {
+        return PDDepartment;
     }
 }

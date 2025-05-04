@@ -3,8 +3,8 @@ package CA2.constants;
 public enum PDDivisionNames {
 
     PM("Product Management"),
-    UX("UX Researchers"),
-    UI("UI Designers");
+    UX("UX Researcher"),
+    UI("UI Design");
 
     private final String divisionName;
 
