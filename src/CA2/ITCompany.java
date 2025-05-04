@@ -4,6 +4,7 @@ import CA2.constants.DepartmentNames;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ITCompany {
 
@@ -56,6 +57,44 @@ public class ITCompany {
             employeeNames.add(employee.getInfo());
         }
         Utils.printCSVAsTable(employeeNames);
+    }
+
+    public void addEmployeeToDepartment(Scanner sc) {
+        sc.nextLine(); // clear scanner
+
+        Employee employee;
+
+        System.out.println("Please enter employee First Name: ");
+        String fName = sc.nextLine();
+
+        System.out.println("Please enter employee Last Name: ");
+        String lName = sc.nextLine();
+
+        System.out.println("Please select department:");
+        System.out.println("1. IT Department");
+        System.out.println("2. HR Department");
+        System.out.println("3. PD Department");
+        int userChoice = Utils.getUserOption(sc);
+
+        Department department;
+        if (userChoice == 1) department = this.getITDepartment();
+        else if (userChoice == 2) department = this.getHRDepartment();
+        else department = this.getPDDepartment();
+
+        System.out.println("Please select position type:");
+        System.out.println("1. Regular Employee");
+        System.out.println("2. Manager");
+        userChoice = Utils.getUserChoice(sc);
+
+        if (userChoice == 1) {
+            System.out.println("Employee " + fName + " " + lName + " has been added to " + department.getDepartmentName() + ":");
+            employee = Utils.generateRandomEmployee(fName, lName, department);
+        } else {
+            System.out.println("Manager " + fName + " " + lName + " has been added to " + department.getDepartmentName() + ":");
+            employee = Utils.generateRandomManager(fName, lName, department.getDepartmentName());
+        }
+        Utils.printCSVAsTable(List.of(employee.getInfo()));
+        Utils.writeToCSV(List.of(employee));
     }
 
     public String getCompanyName() {

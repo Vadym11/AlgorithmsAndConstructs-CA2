@@ -58,7 +58,7 @@ public class Utils {
     }
 
     private static String generateRandomGender() {
-        return random.nextInt(2)%2 == 0 ? "Male" : "Female";
+        return random.nextBoolean() ? "Male" : "Female";
     }
 
     private static String generateEmailBasedOnName(String firstName, String lastName) {
@@ -66,7 +66,16 @@ public class Utils {
     }
 
     private static List<String> generateRandomDivisionName(Department department) {
-        return List.of(department.generateDivisions().get(random.nextInt(department.generateDivisions().size())).getName());
+        List<Division> divisions = department.generateDivisions();
+
+        return List.of(divisions.get(random.nextInt(divisions.size())).getName());
+
+    }
+
+    public static Employee generateRandomEmployee(String firstName, String lastName, Department department) {
+        double salary = random.nextDouble(2000.00, 5000.00);
+
+        return generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
     }
 
     public static Employee generateRandomEmployeeCustomNameSalary(String firstName, String lastName, Department department, double salary) {
@@ -104,16 +113,6 @@ public class Utils {
         String lastName = generateRandomLastName();
 
         return generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
-    }
-
-    public static Employee generateRandomEmployee(String firstName, String lastName, Department department) {
-        double salary = random.nextDouble(2000.00, 5000.00);
-
-        Employee employee = generateRandomEmployeeCustomNameSalary(firstName, lastName, department, salary);
-        System.out.println("Employee " + firstName + " " + lastName + " has been generated!");
-        printCSVAsTable(List.of(employee.getInfo()));
-
-        return employee;
     }
 
     public static Manager generateRandomManager(String firstName, String lastName, String departmentName) {
@@ -164,7 +163,7 @@ public class Utils {
             for (Employee employee : employees) {
                 writer.write(employee.getInfo() + "\n");
             }
-//            System.out.println("Data successfully written to " + MY_FILE_NAME);
+            System.out.println("Data successfully written to " + EMPLOYEES_FILE_NAME);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
@@ -195,7 +194,7 @@ public class Utils {
 //            System.out.println("Finished reading from " + filename);
 
             // return file content without header
-            return fileList.subList(1, fileList.size() - 1);
+            return fileList.subList(1, fileList.size());
         }catch (Exception e){
             //error opening file
             System.out.println("Error - unable to find file " + filename);
@@ -331,9 +330,14 @@ public class Utils {
         if (file != null) {
             fileArray.add("No,".concat(getTableHeader()).split(","));
             // change last column name in header to "Company" if printing Applicants_Form.txt file
-            String lastColumnName = file.get(0).split(",")[8];
-            if (lastColumnName.equals("DataVision") || lastColumnName.equals("TechInnovators")) {
-                fileArray.get(0)[9] = "Company";
+            try {
+                String lastColumnName = file.get(0).split(",")[8];
+                if (lastColumnName.equals("DataVision") || lastColumnName.equals("TechInnovators")) {
+                    fileArray.get(0)[9] = "Company";
+                }
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("Make sure there are no empty lines in Applicants_Form.txt file!");
+                System.out.println(e.getMessage());
             }
 
             for (int i = 0; i < file.size(); i++) {
@@ -375,15 +379,27 @@ public class Utils {
     }
 
     public static int getUserChoice(Scanner sc) {
+        return getUserInputInt(sc, List.of(1, 2));
+    }
+
+    public static int getUserOption(Scanner sc) {
+        return getUserInputInt(sc, List.of(1, 2, 3));
+    }
+
+    public static int getUserInputInt(Scanner sc, List<Integer> optionsArray) {
         int userChoice;
-        String errorMessage = "Invalid input. Please enter 0 or 1:\n";
+        String options = "";
+        for (int option : optionsArray) {
+            options += option + " or ";
+        }
+        String errorMessage = String.format("Invalid input. Please enter %s:\n", options.substring(0, options.length() - 4));
 
         while (true) {
             try {
                 String input = sc.nextLine().trim();
                 userChoice = Integer.parseInt(input);
 
-                if (userChoice == 0 || userChoice == 1) {
+                if (optionsArray.contains(userChoice)) {
                     break;
                 } else {
                     System.out.print(errorMessage);

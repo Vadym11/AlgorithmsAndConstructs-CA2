@@ -1,6 +1,7 @@
 package CA2;
 
 import CA2.constants.DepartmentNames;
+import jdk.jshell.execution.Util;
 
 public class MainApp {
 
@@ -24,6 +25,7 @@ public class MainApp {
 //        Utils.searchAndPrint("Derek", 0);
         ITCompany company = new ITCompany("BestCompanyEver");
 //        company.seaxrchEmployee("Derek", 0);
-        company.getDepartmentEmployees(DepartmentNames.IT.getFullName());
+//        company.getDepartmentEmployees(DepartmentNames.IT.getFullName());
+        Utils.sortAndPrintApplicantsFile(20, 0);
     }
 }
