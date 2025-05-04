@@ -4,14 +4,14 @@ import CA2.constants.DepartmentNames;
 import CA2.constants.HRDivisionNames;
 import CA2.constants.ITDivisionNames;
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utils {
 
-    private static final String MY_FILE_NAME = "employees.csv";
-
-    static Random random = new Random();
+    private static final String MY_FILE_NAME = filename();
 
     static String[] FIRST_NAMES = {
             "Abby", "Benjamin", "Cassandra", "Derek", "Ella", "Felix", "Grace", "Hannah", "Isaac", "Jasmine",
@@ -32,8 +32,15 @@ public class Utils {
 
     static String[] DOMAINS = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
 
+    static Random random = new Random();
+
     private static String getTableHeader() {
         return "First Name,Last Name,Gender,Email,Salary,Department,Position,Job Title,Division(s)";
+    }
+
+    private static String filename() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy_MM_dd-HH_mm_ss");
+        return "employees_" + LocalDateTime.now().format(formatter) + ".csv";
     }
 
     private static String generateRandomName() {
@@ -350,12 +357,8 @@ public class Utils {
 
                 // Print separator after header and last row
                 System.out.println(sepRow);
-                }
             }
-        //TODO: think if this is needed
-//        else {
-//            System.out.println("No records to print.");
-//        }
+        }
     }
 
     public static int getUserChoice(Scanner sc) {
