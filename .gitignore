@@ -9,6 +9,7 @@
 *.ipr
 *.iws
 *.csv
+*.txt
 nbproject/private/
 build/
 nbbuild/

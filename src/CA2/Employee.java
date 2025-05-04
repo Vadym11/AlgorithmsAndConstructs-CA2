@@ -45,9 +45,9 @@ public class Employee extends Worker implements GetDivisions{
                 getGender() + "," +
                 getEmail() + "," +
                 getSalary() + "," +
-                getPositionType() + "," +
-                getDivisionsAsString() + "," +
                 getDepartment() + "," +
-                getJobTitle();
+                getPositionType() + "," +
+                getJobTitle() + "," +
+                getDivisionsAsString();
     }
 }

@@ -33,7 +33,7 @@ public class Utils {
     static String[] DOMAINS = {"gmail.com", "yahoo.com", "outlook.com", "hotmail.com", "icloud.com", "aol.com", "live.com"};
 
     private static String getTableHeader() {
-        return "First Name,Last Name,Gender,Email,Salary,Position,Division(s),Department,Job Title";
+        return "First Name,Last Name,Gender,Email,Salary,Department,Position,Job Title,Division(s)";
     }
 
     private static String generateRandomName() {
@@ -151,11 +151,19 @@ public class Utils {
         }
     }
 
-    public static List<String> readFile() {
+    public static List<String> readEmployeeFile() {
+        return readFileWithFilename(MY_FILE_NAME);
+    }
+
+    public static List<String> readApplicantsFile() {
+        return readFileWithFilename("Applicants_Form.txt");
+    }
+
+    public static List<String> readFileWithFilename(String filename) {
         List<String> fileList = new ArrayList<>();
         try {
             //must have a tr-catch because the file might not exist
-            BufferedReader myFile = new BufferedReader(new FileReader(MY_FILE_NAME));
+            BufferedReader myFile = new BufferedReader(new FileReader(filename));
             //there is something in the file. Let's see what it is!
             String input = myFile.readLine();
             //now a loop to read all the data from the file
@@ -164,13 +172,13 @@ public class Utils {
                 fileList.add(input);
                 input = myFile.readLine();
             }
-            System.out.println("Finished reading from " + MY_FILE_NAME);
+            System.out.println("Finished reading from " + filename);
 
             // return file content without header
             return fileList.subList(1, fileList.size() - 1);
         }catch (Exception e){
             //error opening file
-            System.out.println("Error - unable to find file " + MY_FILE_NAME);
+            System.out.println("Error - unable to find file " + filename);
         }
 
         return null;
@@ -193,8 +201,17 @@ public class Utils {
         }
     }
 
-    public static void sortAndPrint(int records, int sortOption) {
-        List<String> fileList = readFile();
+    public static void sortAndPrintEmployeeFile(int records, int sortOption) {
+        List<String> fileList = readEmployeeFile();
+
+        if (fileList != null) {
+            insertionSortCustom(fileList, sortOption);
+            printCSVAsTable(fileList.subList(0, records));
+        }
+    }
+
+    public static void sortAndPrintApplicantsFile(int records, int sortOption) {
+        List<String> fileList = readApplicantsFile();
 
         if (fileList != null) {
             insertionSortCustom(fileList, sortOption);
@@ -257,10 +274,9 @@ public class Utils {
 
 
     public static List<String> searchRecords(String searchQuery, int option) {
-        List<String> fileList = readFile();
+        List<String> fileList = readEmployeeFile();
 
         if (fileList != null) {
-//            System.out.println("File list is not null! Its size is: " + fileList.size());
             List<String> recordsFound = new ArrayList<>();
 
             insertionSortCustom(fileList, option);
@@ -291,6 +307,10 @@ public class Utils {
 
         if (file != null) {
             fileArray.add("No,".concat(getTableHeader()).split(","));
+            // change last column name in header to "Company" if printing Applicants_Form.txt file
+            if (file.get(0).split(",")[8].equals("DataVision")) {
+                fileArray.get(0)[9] = "Company";
+            }
             for (int i = 0; i < file.size(); i++) {
                 String lineNumber = i + 1 + ",";
                 fileArray.add(lineNumber.concat(file.get(i)).split(","));
@@ -331,5 +351,27 @@ public class Utils {
 //        else {
 //            System.out.println("No records to print.");
 //        }
+    }
+
+    public static int getUserChoice(Scanner sc) {
+        int userChoice;
+        String errorMessage = "Invalid input. Please enter 0 or 1:\n";
+
+        while (true) {
+            try {
+                String input = sc.nextLine().trim();
+                userChoice = Integer.parseInt(input);
+
+                if (userChoice == 0 || userChoice == 1) {
+                    break;
+                } else {
+                    System.out.print(errorMessage);
+                }
+            } catch (NumberFormatException e) {
+                System.out.print(errorMessage);
+            }
+        }
+
+        return userChoice;
     }
 }

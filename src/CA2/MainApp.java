@@ -6,7 +6,7 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        Manager HRManager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());;
+        Manager HRManager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());
         DepartmentHR HRDepartment = new DepartmentHR(HRManager);
 
         Manager ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
@@ -21,6 +21,9 @@ public class MainApp {
 //        Utils.printCSVAsTable(Utils.searchRecords("People Operations", 7));
 
 //        Utils.sortAndPrint(10, 0);
-        Utils.searchAndPrint("Derek", 0);
+//        Utils.searchAndPrint("Derek", 0);
+        ITCompany company = new ITCompany("BestCompanyEver");
+//        company.seaxrchEmployee("Derek", 0);
+        company.getDepartmentEmployees(DepartmentNames.IT.getFullName());
     }
 }
