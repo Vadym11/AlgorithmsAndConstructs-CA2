@@ -163,7 +163,7 @@ public class Utils {
             for (Employee employee : employees) {
                 writer.write(employee.getInfo() + "\n");
             }
-            System.out.println("Data successfully written to " + EMPLOYEES_FILE_NAME);
+//            System.out.println("Data successfully written to " + EMPLOYEES_FILE_NAME);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
@@ -417,11 +417,11 @@ public class Utils {
     }
 
     public static int getUserChoice(Scanner sc) {
-        return getUserInputInt(sc, List.of(1, 2));
+        return getUserInputInt(sc, List.of(0, 1, 2));
     }
 
     public static int getUserOption(Scanner sc) {
-        return getUserInputInt(sc, List.of(1, 2, 3));
+        return getUserInputInt(sc, List.of(0, 1, 2, 3));
     }
 
     public static int getUserInputInt(Scanner sc, List<Integer> optionsArray) {
