@@ -4,8 +4,9 @@ import java.util.List;
 
 public abstract class Department implements GetDivisions{
 
+
+    private Manager manager;
     private final String departmentName;
-    private final Manager manager;
     private final List<Employee> employees;
     private final List<Division> divisions;
 
@@ -37,6 +38,10 @@ public abstract class Department implements GetDivisions{
 
     public List<Division> getDivisions() {
         return this.divisions;
+    }
+
+    public void setManager(Manager manager) {
+        this.manager = manager;
     }
 
     public String getDivisionsAsString() {

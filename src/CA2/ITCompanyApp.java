@@ -122,6 +122,7 @@ public class ITCompanyApp {
 
                         if (!employeesWrittenToFiles) {
                             company.writeAllEmployeesToFile();
+                            employeesWrittenToFiles = true;
                         }
                         company.addEmployeeToDepartment(sc);
                     }

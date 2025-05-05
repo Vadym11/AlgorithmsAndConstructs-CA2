@@ -4,6 +4,7 @@ import CA2.constants.DepartmentNames;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public final class ITCompany {
@@ -62,58 +63,76 @@ public final class ITCompany {
     public void addEmployeeToDepartment(Scanner sc) {
         sc.nextLine(); // clear scanner
         String returnMessage = String.format("You entered 0. Returning to %s company main menu...\n", this.companyName);
+        int userChoice;
         Employee employee;
 
-//        System.out.printf("\nEnter 0 to return to %s company main menu at any time.\n", this.companyName);
-        System.out.println("Please enter employee First Name: ");
-        String fName = sc.nextLine();
-
-        if (fName.equals("0")) {
-            System.out.println(returnMessage);
-            return;
-        }
-
-        System.out.println("Please enter employee Last Name: ");
-        String lName = sc.nextLine();
-
-        if (lName.equals("0")) {
-            System.out.println(returnMessage);
-            return;
-        }
-
-        System.out.println("Please select department:");
-        System.out.println("1. IT Department");
-        System.out.println("2. HR Department");
-        System.out.println("3. PD Department");
-        int userChoice = Utils.getUserOption(sc);
+        System.out.println("To create employee manually enter 1, to autogenerate - enter 2: ");
+        userChoice = Utils.getUserOption(sc);
 
         if (userChoice == 0) {
             System.out.println(returnMessage);
-            return;
-        }
-
-        Department department;
-        if (userChoice == 1) department = this.getITDepartment();
-        else if (userChoice == 2) department = this.getHRDepartment();
-        else department = this.getPDDepartment();
-
-        System.out.println("Please select position type:");
-        System.out.println("1. Regular Employee");
-        System.out.println("2. Manager");
-        userChoice = Utils.getUserChoice(sc);
-
-        if (userChoice == 0) {
-            System.out.println(returnMessage);
-            return;
         } else if (userChoice == 1) {
-            System.out.println("Employee " + fName + " " + lName + " has been added to " + department.getDepartmentName() + ":");
-            employee = Utils.generateRandomEmployee(fName, lName, department);
+            System.out.println("Please enter employee First Name: ");
+            String fName = sc.nextLine();
+
+            if (fName.equals("0")) {
+                System.out.println(returnMessage);
+                return;
+            }
+
+            System.out.println("Please enter employee Last Name: ");
+            String lName = sc.nextLine();
+
+            if (lName.equals("0")) {
+                System.out.println(returnMessage);
+                return;
+            }
+
+            System.out.println("Please select department:");
+            System.out.println("1. IT Department");
+            System.out.println("2. HR Department");
+            System.out.println("3. PD Department");
+            userChoice = Utils.getUserOption(sc);
+
+            if (userChoice == 0) {
+                System.out.println(returnMessage);
+                return;
+            }
+
+            Department department;
+            if (userChoice == 1) department = this.getITDepartment();
+            else if (userChoice == 2) department = this.getHRDepartment();
+            else department = this.getPDDepartment();
+
+            System.out.println("Please select position type:");
+            System.out.println("1. Regular Employee");
+            System.out.println("2. Manager");
+            userChoice = Utils.getUserChoice(sc);
+
+            if (userChoice == 0) {
+                System.out.println(returnMessage);
+                return;
+            } else if (userChoice == 1) {
+                System.out.println("Employee " + fName + " " + lName + " has been added to " + department.getDepartmentName() + ":");
+                employee = Utils.generateRandomEmployee(fName, lName, department);
+                department.getEmployees().add(employee);
+            } else {
+                System.out.println("Manager " + fName + " " + lName + " has been added to " + department.getDepartmentName() + ":");
+                employee = Utils.generateRandomManager(fName, lName, department.getDepartmentName());
+                department.setManager((Manager) employee);
+            }
+            Utils.printCSVAsTable(List.of(employee.getInfo()));
+            Utils.writeToCSV(List.of(employee));
         } else {
-            System.out.println("Manager " + fName + " " + lName + " has been added to " + department.getDepartmentName() + ":");
-            employee = Utils.generateRandomManager(fName, lName, department.getDepartmentName());
+            double salary = new Random().nextDouble(1000, 1111.00);
+            Department department = this.getDepartments().get(new Random().nextInt(0, 3));
+            employee = Utils.generateRandomEmployeeForDepartmentInit(department, salary);
+            System.out.println("Employee " + employee.getFirstName() + " " + employee.getLastName() + " has been added to "
+                    + department.getDepartmentName() + ":");
+
+            Utils.printCSVAsTable(List.of(employee.getInfo()));
+            Utils.writeToCSV(List.of(employee));
         }
-        Utils.printCSVAsTable(List.of(employee.getInfo()));
-        Utils.writeToCSV(List.of(employee));
     }
 
     public String getCompanyName() {
@@ -142,5 +161,9 @@ public final class ITCompany {
 
     public DepartmentPD getPDDepartment() {
         return PDDepartment;
+    }
+
+    public List<Department> getDepartments() {
+        return List.of(ITDepartment, HRDepartment, PDDepartment);
     }
 }
