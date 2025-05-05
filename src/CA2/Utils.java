@@ -220,11 +220,49 @@ public class Utils {
         }
     }
 
+    public static void mergeSortCustom(List<String> myList, int sortColumn) {
+        if (myList == null || myList.size() <= 1) return;
+        mergeSortHelper(myList, 0, myList.size() - 1, sortColumn);
+    }
+
+    private static void mergeSortHelper(List<String> myList, int left, int right, int sortColumn) {
+        if (left >= right) return;
+
+        int mid = left + (right - left) / 2;
+        mergeSortHelper(myList, left, mid, sortColumn);
+        mergeSortHelper(myList, mid + 1, right, sortColumn);
+        merge(myList, left, mid, right, sortColumn);
+    }
+
+    private static void merge(List<String> myList, int left, int mid, int right, int sortColumn) {
+        List<String> merged = new ArrayList<>();
+        int i = left, j = mid + 1;
+
+        while (i <= mid && j <= right) {
+            String leftVal = myList.get(i).split(",")[sortColumn];
+            String rightVal = myList.get(j).split(",")[sortColumn];
+
+            if (leftVal.compareTo(rightVal) <= 0) {
+                merged.add(myList.get(i++));
+            } else {
+                merged.add(myList.get(j++));
+            }
+        }
+
+        while (i <= mid) merged.add(myList.get(i++));
+        while (j <= right) merged.add(myList.get(j++));
+
+        // Write back to original list
+        for (int k = 0; k < merged.size(); k++) {
+            myList.set(left + k, merged.get(k));
+        }
+    }
+
     public static void sortAndPrintEmployeeFile(int records, int sortOption) {
         List<String> fileList = readEmployeeFile();
 
         if (fileList != null) {
-            insertionSortCustom(fileList, sortOption);
+            mergeSortCustom(fileList, sortOption);
             printCSVAsTable(fileList.subList(0, records));
         }
     }
@@ -233,7 +271,7 @@ public class Utils {
         List<String> fileList = readApplicantsFile();
 
         if (fileList != null) {
-            insertionSortCustom(fileList, sortOption);
+            mergeSortCustom(fileList, sortOption);
             printCSVAsTable(fileList.subList(0, records));
         }
     }
@@ -304,7 +342,7 @@ public class Utils {
         if (fileList != null) {
             List<String> recordsFound = new ArrayList<>();
 
-            insertionSortCustom(fileList, option);
+            mergeSortCustom(fileList, option);
 
             List<Integer> foundIndexes = binarySearchAllDuplicates(
                     fileList, option, searchQuery, 0, (fileList.size() - 1));

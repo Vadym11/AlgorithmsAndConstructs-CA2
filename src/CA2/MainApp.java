@@ -26,6 +26,12 @@ public class MainApp {
         ITCompany company = new ITCompany("BestCompanyEver");
 //        company.seaxrchEmployee("Derek", 0);
 //        company.getDepartmentEmployees(DepartmentNames.IT.getFullName());
-        Utils.sortAndPrintApplicantsFile(20, 0);
+        try {
+            Utils.sortAndPrintApplicantsFile(20, 0);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            System.out.println("Check stack Trace below to troubleshoot!");
+        }
     }
 }
