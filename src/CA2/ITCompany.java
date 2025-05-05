@@ -10,6 +10,7 @@ import java.util.Scanner;
 public final class ITCompany {
 
     private final String companyName;
+    private final String CEOName;
     private final Manager HRManager;
     private final Manager ITManager;
     private final Manager PDManager;
@@ -17,8 +18,9 @@ public final class ITCompany {
     private final DepartmentIT ITDepartment;
     private final DepartmentPD PDDepartment;
 
-    public ITCompany(String companyName) {
+    public ITCompany(String companyName, String ceoName) {
         this.companyName = companyName;
+        this.CEOName = ceoName;
         HRManager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());
         ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
         PDManager = Utils.generateRandomManagerDepartment(DepartmentNames.PD.getFullName());

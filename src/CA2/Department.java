@@ -4,7 +4,6 @@ import java.util.List;
 
 public abstract class Department implements GetDivisions{
 
-
     private Manager manager;
     private final String departmentName;
     private final List<Employee> employees;

@@ -2,7 +2,7 @@ package CA2.constants;
 
 public enum ITDivisionNames {
 
-    NETWORK("Network Division"),
+    NETWORK("Development"),
     SERVER("Server & Storage"),
     TECHNICAL("Technical Support");
 
