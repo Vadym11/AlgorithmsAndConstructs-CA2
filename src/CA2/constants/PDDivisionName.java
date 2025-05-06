@@ -1,14 +1,14 @@
 package CA2.constants;
 
-public enum HRDivisionNames {
+public enum PDDivisionName {
 
-    RECR("Recruitment"),
-    PEOPLE_OP("People Operations"),
-    ADMIN("Administration");
+    PM("Product Management"),
+    UX("UX Research"),
+    UI("UI Design");
 
     private final String divisionName;
 
-    HRDivisionNames(String division) {
+    PDDivisionName(String division) {
         this.divisionName = division;
     }
 

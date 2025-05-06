@@ -1,12 +1,14 @@
 package CA2;
 
-import CA2.constants.ITDivisionNames;
+import CA2.base.Department;
+import CA2.base.Division;
+import CA2.constants.ITDivisionName;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DepartmentIT extends Department{
+public class DepartmentIT extends Department {
 
     public DepartmentIT(Manager manager) {
         super(manager);
@@ -30,7 +32,7 @@ public class DepartmentIT extends Department{
     @Override
     public List<Division> generateDivisions() {
         List<Division> listOfDivisions = new ArrayList<>();
-        for (ITDivisionNames c : ITDivisionNames.values()) {
+        for (ITDivisionName c : ITDivisionName.values()) {
             listOfDivisions.add(new Division(c.getDivisionName()));
         }
 

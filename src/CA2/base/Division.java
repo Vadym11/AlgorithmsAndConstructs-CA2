@@ -1,4 +1,4 @@
-package CA2;
+package CA2.base;
 
 public class Division {
 

@@ -1,6 +1,7 @@
 package CA2;
 
-import CA2.constants.DepartmentNames;
+import CA2.base.Department;
+import CA2.constants.DepartmentName;
 
 import java.util.*;
 
@@ -21,9 +22,9 @@ public final class ITCompany {
     public ITCompany(String companyName, String ceoName) {
         this.companyName = companyName;
         this.CEOName = ceoName;
-        HRManager = Utils.generateRandomManagerDepartment(DepartmentNames.HR.getFullName());
-        ITManager = Utils.generateRandomManagerDepartment(DepartmentNames.IT.getFullName());
-        PDManager = Utils.generateRandomManagerDepartment(DepartmentNames.PD.getFullName());
+        HRManager = Utils.generateRandomManagerDepartment(DepartmentName.HR.getFullName());
+        ITManager = Utils.generateRandomManagerDepartment(DepartmentName.IT.getFullName());
+        PDManager = Utils.generateRandomManagerDepartment(DepartmentName.PD.getFullName());
         HRDepartment = new DepartmentHR(HRManager);
         ITDepartment = new DepartmentIT(ITManager);
         PDDepartment = new DepartmentPD(PDManager);
@@ -80,9 +81,9 @@ public final class ITCompany {
 
     public void getDepartmentEmployees(String departmentName) {
         Department department;
-        if (departmentName.equals(DepartmentNames.HR.getFullName())) {
+        if (departmentName.equals(DepartmentName.HR.getFullName())) {
             department = HRDepartment;
-        } else if (departmentName.equals(DepartmentNames.IT.getFullName())) {
+        } else if (departmentName.equals(DepartmentName.IT.getFullName())) {
             department = ITDepartment;
         } else {
             department = PDDepartment;

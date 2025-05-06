@@ -1,8 +1,11 @@
-package CA2;
+package CA2.base;
+
+import CA2.Employee;
+import CA2.Manager;
 
 import java.util.List;
 
-public abstract class Department implements GetDivisions{
+public abstract class Department implements GetDivisions {
 
     private Manager manager;
     private final String departmentName;

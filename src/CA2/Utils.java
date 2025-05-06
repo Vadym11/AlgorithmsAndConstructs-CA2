@@ -1,9 +1,11 @@
 package CA2;
 
-import CA2.constants.DepartmentNames;
-import CA2.constants.HRDivisionNames;
-import CA2.constants.ITDivisionNames;
-import CA2.constants.PDDivisionNames;
+import CA2.base.Department;
+import CA2.base.Division;
+import CA2.constants.DepartmentName;
+import CA2.constants.HRDivisionName;
+import CA2.constants.ITDivisionName;
+import CA2.constants.PDDivisionName;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -80,10 +82,10 @@ public class Utils {
 
     public static Employee generateRandomEmployeeCustomNameSalary(String firstName, String lastName, Department department, double salary) {
         String jobTitle;
-        if (department.getDepartmentName().equals(DepartmentNames.HR.getFullName())) {
+        if (department.getDepartmentName().equals(DepartmentName.HR.getFullName())) {
             jobTitle = List.of("Technical Recruiter", "Vendor Coordination", "Employee Engagement")
                     .get(random.nextInt(3));
-        } else if (department.getDepartmentName().equals(DepartmentNames.IT.getFullName())) {
+        } else if (department.getDepartmentName().equals(DepartmentName.IT.getFullName())) {
             jobTitle = List.of("Backend Developer", "Frontend Developer", "Automation QA")
                     .get(random.nextInt(3));
         } else {
@@ -117,17 +119,17 @@ public class Utils {
 
     public static Manager generateRandomManager(String firstName, String lastName, String departmentName) {
         List<String> divisions;
-        if (departmentName.equals(DepartmentNames.IT.getFullName())) {
-            divisions = Arrays.stream(ITDivisionNames.values())
-                    .map(ITDivisionNames::getDivisionName)
+        if (departmentName.equals(DepartmentName.IT.getFullName())) {
+            divisions = Arrays.stream(ITDivisionName.values())
+                    .map(ITDivisionName::getDivisionName)
                     .collect(Collectors.toList());
-        } else if (departmentName.equals(DepartmentNames.HR.getFullName())) {
-            divisions = Arrays.stream(HRDivisionNames.values())
-                    .map(HRDivisionNames::getDivisionName)
+        } else if (departmentName.equals(DepartmentName.HR.getFullName())) {
+            divisions = Arrays.stream(HRDivisionName.values())
+                    .map(HRDivisionName::getDivisionName)
                     .collect(Collectors.toList());
         } else {
-            divisions = Arrays.stream(PDDivisionNames.values())
-                    .map(PDDivisionNames::getDivisionName)
+            divisions = Arrays.stream(PDDivisionName.values())
+                    .map(PDDivisionName::getDivisionName)
                     .collect(Collectors.toList());
         }
 

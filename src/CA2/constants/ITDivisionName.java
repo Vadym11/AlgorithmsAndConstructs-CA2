@@ -1,6 +1,6 @@
 package CA2.constants;
 
-public enum ITDivisionNames {
+public enum ITDivisionName {
 
     NETWORK("Development"),
     SERVER("Server & Storage"),
@@ -8,7 +8,7 @@ public enum ITDivisionNames {
 
     private final String divisionName;
 
-    ITDivisionNames(String division) {
+    ITDivisionName(String division) {
         this.divisionName = division;
     }
 

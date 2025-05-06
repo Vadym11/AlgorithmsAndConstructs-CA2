@@ -1,8 +1,11 @@
 package CA2;
 
+import CA2.base.GetDivisions;
+import CA2.base.Worker;
+
 import java.util.List;
 
-public class Employee extends Worker implements GetDivisions{
+public class Employee extends Worker implements GetDivisions {
 
     private final List<String> divisions;
     private final String department;

@@ -1,6 +1,6 @@
 package CA2.constants;
 
-public enum DepartmentNames {
+public enum DepartmentName {
 
     IT("IT Department"),
     HR("Human Resources Department"),
@@ -8,7 +8,7 @@ public enum DepartmentNames {
 
     private final String departmentName;
 
-    DepartmentNames(String department) {
+    DepartmentName(String department) {
         this.departmentName = department;
     }
 
