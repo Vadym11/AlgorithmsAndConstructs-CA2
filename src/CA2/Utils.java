@@ -163,7 +163,6 @@ public class Utils {
             for (Employee employee : employees) {
                 writer.write(employee.getInfo() + "\n");
             }
-//            System.out.println("Data successfully written to " + EMPLOYEES_FILE_NAME);
         } catch (IOException e) {
             System.out.println("An error occurred while writing to the file.");
             e.printStackTrace();
@@ -191,7 +190,6 @@ public class Utils {
                 fileList.add(input);
                 input = myFile.readLine();
             }
-//            System.out.println("Finished reading from " + filename);
 
             // return file content without header
             return fileList.subList(1, fileList.size());
@@ -262,7 +260,9 @@ public class Utils {
         if (emplInfo != null) {
                 mergeSortCustom(emplInfo, sortOption);
                 printCSVAsTable(emplInfo.subList(0, records));
-            }
+        } else {
+            System.out.println("Ooops, an error occurred, no employee data exists...");
+        }
     }
 
     public static void sortAndPrintEmployeeFile(int records, int sortOption) {
