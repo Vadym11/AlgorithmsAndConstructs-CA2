@@ -32,7 +32,7 @@ public class ITCompanyApp {
             }
 
             do {
-                System.out.printf("\n---- %s Company Menu ----\n", companyName);
+                System.out.printf("\n---- %s Company Menu ----\n", companyName.toUpperCase());
                 for (MenuOption option : MenuOption.values()) {
                     System.out.println(option.getDescription());
                 }
@@ -56,21 +56,22 @@ public class ITCompanyApp {
                     case SORT -> {
                         System.out.println("\nTo return to MAIN MENU enter 0 at any time.\n");
                         sc.nextLine(); // clear scanner
-                        System.out.println("Which file would you like to sort? Enter 1 for EMPLOYEE file or 2 for APPLICANTS file?");
-                        if (!employeesWrittenToFiles) {
-                            System.out.println(ifNotWritten);
-                        }
+                        System.out.printf("What would you like to sort? Enter 1 for %s company employees or 2 for APPLICANTS file.\n",
+                                companyName.toUpperCase());
+//                        if (!employeesWrittenToFiles) {
+//                            System.out.println(ifNotWritten);
+//                        }
 
                         userChoice = Utils.getUserChoice(sc);
 
                         if (userChoice == 0) {
                             System.out.println(returnMessage);
                         } else if (userChoice == 1) {
-                            if (!employeesWrittenToFiles) {
-                                System.out.println("Writing all " + companyName + " Company employees to" + fileName + " file ...");
-                                company.writeAllEmployeesToFile();
-                            }
-                            company.sortAndPrintEmployees();
+//                            if (!employeesWrittenToFiles) {
+//                                System.out.println("Writing all " + companyName + " Company employees to" + fileName + " file ...");
+//                                company.writeAllEmployeesToFile();
+//                            }
+                            company.printSortedEmployeesInfo(company.getCompanyEmployeesInfoSorted());
                         } else {
                             Utils.sortAndPrintApplicantsFile(20, 0);
                         }
@@ -78,10 +79,11 @@ public class ITCompanyApp {
                     case SEARCH -> {
                         sc.nextLine();
                         System.out.println("\nTo return to MAIN MENU enter 0 at any time.\n");
-                        System.out.println("Which file would you like to search? Enter 1 for EMPLOYEE file or 2 for APPLICANTS file?");
-                        if (!employeesWrittenToFiles) {
-                            System.out.println(ifNotWritten);
-                        }
+                        System.out.printf("What would you like to search? Enter 1 for %s company employees or 2 for APPLICANTS file.\n",
+                                companyName.toUpperCase());
+//                        if (!employeesWrittenToFiles) {
+//                            System.out.println(ifNotWritten);
+//                        }
 
                         userChoice = Utils.getUserChoice(sc);
 
@@ -98,7 +100,7 @@ public class ITCompanyApp {
                             break;
                         }
 
-                        System.out.print("Enter your search query: ");
+                        System.out.print("Enter your search query (case insensitive): ");
                         String query = sc.nextLine();
 
                         if (query.equals("0")) {
@@ -107,14 +109,14 @@ public class ITCompanyApp {
                         }
 
                         if (userChoice == 1) {
-                            if (!employeesWrittenToFiles) {
-                                System.out.println("Writing all " + companyName + " Company employees to " + fileName + "file ...");
-                                company.writeAllEmployeesToFile();
-                                employeesWrittenToFiles = true;
-                            }
-                            company.searchEmployee(query, sortOption);
+//                            if (!employeesWrittenToFiles) {
+//                                System.out.println("Writing all " + companyName + " Company employees to " + fileName + "file ...");
+//                                company.writeAllEmployeesToFile();
+//                                employeesWrittenToFiles = true;
+//                            }
+                            company.searchEmployee(company.getCompanyEmployeesInfoSorted(), query.toLowerCase(), sortOption);
                         } else {
-                            Utils.searchAndPrintApplicants(query, sortOption);
+                            Utils.searchAndPrintApplicants(query.toLowerCase(), sortOption);
                         }
                     }
                     case ADD -> {

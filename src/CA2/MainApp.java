@@ -2,6 +2,8 @@ package CA2;
 
 import CA2.constants.DepartmentNames;
 
+import java.util.Scanner;
+
 public class MainApp {
 
     public static void main(String[] args) {
@@ -23,14 +25,32 @@ public class MainApp {
 //        Utils.sortAndPrint(10, 0);
 //        Utils.searchAndPrint("Derek", 0);
         ITCompany company = new ITCompany("BestCompanyEver", "Vadym Tymeichuk");
-        company.searchEmployee("ChisoraD", 0);
-//        company.getDepartmentEmployees(DepartmentNames.IT.getFullName());
-        try {
-            Utils.sortAndPrintApplicantsFile(20, 0);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-            System.out.println("Check stack Trace below to troubleshoot!");
+//        company.writeAllEmployeesToFile();
+//        company.searchEmployee("ChisoraD", 0);
+        System.out.println(company.getITDepartment().getManager().getInfo());
+        Employee employee = Utils.generateRandomManager("Addis", "Abeba", company.getITDepartment().getDepartmentName());
+        company.getITDepartment().setManager((Manager) employee);
+        System.out.println(company.getITDepartment().getManager().getInfo());
+
+        for (Employee e : company.getCompanyEmployees()) {
+            System.out.println(e.getInfo());
         }
+
+        System.out.println("_______________________");
+
+        company.addEmployeeToDepartment(new Scanner(System.in));
+
+        for (Employee e : company.getCompanyEmployees()) {
+            System.out.println(e.getInfo());
+        }
+//        company.searchEmployee("Addis", 0);
+//        company.getDepartmentEmployees(DepartmentNames.IT.getFullName());
+//        try {
+//            Utils.sortAndPrintApplicantsFile(20, 0);
+//        } catch (Exception e){
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
+//            System.out.println("Check stack Trace below to troubleshoot!");
+//        }
     }
 }

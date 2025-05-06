@@ -258,13 +258,17 @@ public class Utils {
         }
     }
 
+    public static void sortAndPrintEmployeesInfo(List<String> emplInfo, int records, int sortOption) {
+        if (emplInfo != null) {
+                mergeSortCustom(emplInfo, sortOption);
+                printCSVAsTable(emplInfo.subList(0, records));
+            }
+    }
+
     public static void sortAndPrintEmployeeFile(int records, int sortOption) {
         List<String> fileList = readEmployeeFile();
 
-        if (fileList != null) {
-            mergeSortCustom(fileList, sortOption);
-            printCSVAsTable(fileList.subList(0, records));
-        }
+        sortAndPrintEmployeesInfo(fileList, records, sortOption);
     }
 
     public static void sortAndPrintApplicantsFile(int records, int sortOption) {
@@ -276,28 +280,28 @@ public class Utils {
         }
     }
 
-    public static int binarySearchRecursiveCustom(List<String> myList, int option, String key, int start, int end) {
+    public static int binarySearchRecursiveCustom(List<String> myList, int option, String searchQuery, int start, int end) {
         if (start > end) {
             return -1; // Key not found
         }
 
         int middle = (end + start)/2;
-        String word = myList.get(middle).split(",")[option];
+        String word = myList.get(middle).split(",")[option].toLowerCase();
 
-        if (word.compareTo(key) == 0) {
+        if (word.compareTo(searchQuery) == 0) {
             return middle;
-        } else if (word.compareTo(key) < 0) {
-            return binarySearchRecursiveCustom(myList, option, key, middle + 1, end);
+        } else if (word.compareTo(searchQuery) < 0) {
+            return binarySearchRecursiveCustom(myList, option, searchQuery, middle + 1, end);
         } else {
-            return binarySearchRecursiveCustom(myList, option, key, start, middle - 1);
+            return binarySearchRecursiveCustom(myList, option, searchQuery, start, middle - 1);
         }
     }
 
-    public static List<Integer> binarySearchAllDuplicates(List<String> myList, int option, String key, int start, int end) {
+    public static List<Integer> binarySearchAllDuplicates(List<String> myList, int option, String searchQuery, int start, int end) {
         List<Integer> result = new ArrayList<>();
 
         // First, find one match using binary search
-        int matchIndex = binarySearchRecursiveCustom(myList, option, key, start, end);
+        int matchIndex = binarySearchRecursiveCustom(myList, option, searchQuery, start, end);
         // return null if search did not find matches
         if (matchIndex == -1) return null;
 
@@ -307,7 +311,7 @@ public class Utils {
         // Look left
         int left = matchIndex - 1;
         while (left >= start) {
-            if (myList.get(left).split(",")[option].equals(key)) {
+            if (myList.get(left).split(",")[option].toLowerCase().equals(searchQuery)) {
                 result.add(left);
                 left--;
             } else {
@@ -318,7 +322,7 @@ public class Utils {
         // Look right
         int right = matchIndex + 1;
         while (right <= end) {
-            if (myList.get(right).split(",")[option].equals(key)) {
+            if (myList.get(right).split(",")[option].toLowerCase().equals(searchQuery)) {
                 result.add(right);
                 right++;
             } else {
@@ -329,8 +333,8 @@ public class Utils {
         return result;
     }
 
-    public static void searchAndPrintEmployees(String searchQuery, int option) {
-        printCSVAsTable(searchRecords(searchQuery, option, readEmployeeFile()));
+    public static void searchAndPrintEmployees(List<String> employees, String searchQuery, int option) {
+        printCSVAsTable(searchRecords(searchQuery, option, employees));
     }
 
     public static void searchAndPrintApplicants(String searchQuery, int option) {
