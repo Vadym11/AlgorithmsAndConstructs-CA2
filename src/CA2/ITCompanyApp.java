@@ -108,7 +108,7 @@ public class ITCompanyApp {
                             }
 
                             // perform search on the company employees or Applicants_Form.txt file
-                            // depending on user choice
+                            // depending on user choice of first or last name
                             if (userChoice == 1) {
                                 company.searchEmployee(company.getCompanyEmployeesInfoSorted(), query.toLowerCase(), sortOption);
                             } else {

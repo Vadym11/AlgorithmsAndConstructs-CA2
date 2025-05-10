@@ -187,7 +187,7 @@ public class Utils {
 
     /**
      * Generates a random employee with a specified salary and randomly generated name.
-     * Typically used during department initialization.
+     * Used during department initialization.
      * @param department department the employee belongs to
      * @param salary employee's salary
      * @return generated Employee object

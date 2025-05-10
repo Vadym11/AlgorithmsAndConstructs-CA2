@@ -10,7 +10,7 @@ import java.util.List;
  * but is distinguished by the "Manager" position type and divisions representation
  * when generating Manager information.
  */
-public class Manager extends Employee implements GetDivisions {
+public class Manager extends Employee {
 
     /**
      * Constructs a Manager object with the specified attributes.
