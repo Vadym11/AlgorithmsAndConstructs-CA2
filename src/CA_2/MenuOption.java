@@ -1,4 +1,4 @@
-package CA2;
+package CA_2;
 
 /**
  * Enum representing the main menu options for user interaction.

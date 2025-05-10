@@ -1,4 +1,4 @@
-package CA2;
+package CA_2;
 
 import java.util.List;
 
