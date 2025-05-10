@@ -7,6 +7,7 @@ import java.util.*;
 
 public final class ITCompany {
 
+    // class fields declaration
     private final String companyName;
     private final String CEOName;
     private final Manager HRManager;
@@ -19,9 +20,12 @@ public final class ITCompany {
     private List<String> employeesInfoUnsorted;
     private List<String> companyEmployeesInfoSorted;
 
+    // class constructor
     public ITCompany(String companyName, String ceoName) {
+        // two arguments are passed during instantiation
         this.companyName = companyName;
         this.CEOName = ceoName;
+        // the rest is initialized at runtime
         HRManager = Utils.generateRandomManagerDepartment(DepartmentName.HR.getFullName());
         ITManager = Utils.generateRandomManagerDepartment(DepartmentName.IT.getFullName());
         PDManager = Utils.generateRandomManagerDepartment(DepartmentName.PD.getFullName());
@@ -33,6 +37,11 @@ public final class ITCompany {
         Utils.printCSVAsTable(employeesInfoUnsorted);
     }
 
+    /**
+     * Iterates over company departments and adds all employees to the
+     * list of company employees
+     * @eturns list of company employees as Employee objects
+     */
     private List<Employee> getAllEmployees() {
         List<Employee> employeeList = new ArrayList<>();
 
@@ -45,6 +54,11 @@ public final class ITCompany {
         return employeeList;
     }
 
+    /**
+     * Iterates over all company employees, get all employee info,
+     * adds it to a list and then sort it;
+     * @returns company employees info as a List of strings
+     */
     public  List<String> getAndSortAllEmployeesInfo() {
         List<String> employeesInfo = new ArrayList<>();
         for (Employee e : companyEmployees) {
@@ -58,6 +72,11 @@ public final class ITCompany {
         return employeesInfo;
     }
 
+    /**
+     * Returns all company employees sorted info. In case more employees were
+     * added, triggers resorting before returning.
+     * @returns list of company employees
+     */
     public List<String> getCompanyEmployeesInfoSorted() {
         if (companyEmployeesInfoSorted.size() != companyEmployees.size()) {
             System.out.println("Employee(s) has/have been added. Resorting...");
@@ -67,10 +86,21 @@ public final class ITCompany {
         return companyEmployeesInfoSorted;
     }
 
+    /**
+     * Writes all company employees info into a file
+     * @returns void
+     */
     public void writeAllEmployeesToFile() {
         Utils.writeToCSV(getCompanyEmployees());
     }
 
+    /**
+     * Takes a list of company employees add it to a list and then sort it.
+     * @param employees - list of company employees info
+     * @param query - search query (First or Last name)
+     * @param option - sorting option depending on user choice
+     * @returns void
+     */
     public void searchEmployee(List<String> employees, String query, int option) {
         Utils.searchAndPrintEmployees(employees, query, option);
     }
