@@ -1,4 +1,4 @@
-package CA2.constants;
+package CA2;
 
 public enum PDDivisionName {
 

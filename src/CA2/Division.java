@@ -1,4 +1,4 @@
-package CA2.base;
+package CA2;
 
 /**
  * Represents a named division within a department.

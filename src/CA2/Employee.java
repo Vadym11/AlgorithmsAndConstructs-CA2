@@ -1,8 +1,5 @@
 package CA2;
 
-import CA2.base.GetDivisions;
-import CA2.base.Worker;
-
 import java.util.List;
 
 /**

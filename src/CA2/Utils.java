@@ -1,12 +1,5 @@
 package CA2;
 
-import CA2.base.Department;
-import CA2.base.Division;
-import CA2.constants.DepartmentName;
-import CA2.constants.HRDivisionName;
-import CA2.constants.ITDivisionName;
-import CA2.constants.PDDivisionName;
-
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

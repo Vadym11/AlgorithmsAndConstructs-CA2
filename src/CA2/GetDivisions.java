@@ -1,4 +1,4 @@
-package CA2.base;
+package CA2;
 
 /**
  * Interface for classes that can provide a string representation of their divisions,

@@ -1,9 +1,5 @@
 package CA2;
 
-import CA2.base.Department;
-import CA2.base.Division;
-import CA2.constants.HRDivisionName;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

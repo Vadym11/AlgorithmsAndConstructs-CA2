@@ -1,4 +1,4 @@
-package CA2.base;
+package CA2;
 
 /**
  * Abstract base class representing a generic worker in the company.

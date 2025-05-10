@@ -1,7 +1,5 @@
 package CA2;
 
-import CA2.constants.MenuOption;
-
 import java.util.Scanner;
 
 public class ITCompanyApp {

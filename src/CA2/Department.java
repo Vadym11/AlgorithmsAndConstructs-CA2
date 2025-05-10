@@ -1,7 +1,4 @@
-package CA2.base;
-
-import CA2.Employee;
-import CA2.Manager;
+package CA2;
 
 import java.util.List;
 

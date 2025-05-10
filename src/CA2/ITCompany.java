@@ -1,8 +1,5 @@
 package CA2;
 
-import CA2.base.Department;
-import CA2.constants.DepartmentName;
-
 import java.util.*;
 
 public final class ITCompany {
