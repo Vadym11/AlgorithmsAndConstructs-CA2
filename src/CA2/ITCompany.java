@@ -7,20 +7,37 @@ import java.util.*;
 
 public final class ITCompany {
 
-    // class fields declaration
+    // Name of the company
     private final String companyName;
+    // Name of the CEO
     private final String CEOName;
+    // Manager of the HR department
     private final Manager HRManager;
+    // Manager of the IT department
     private final Manager ITManager;
+    // Manager of the PD department
     private final Manager PDManager;
+    // HR department, initialized with a manager
     private final DepartmentHR HRDepartment;
+    // IT department, initialized with a manager
     private final DepartmentIT ITDepartment;
+    // PD department, initialized with a manager
     private final DepartmentPD PDDepartment;
+    // List of all employees in the company including managers
     private final List<Employee> companyEmployees;
+    // Raw, unsorted list of employee info strings
     private List<String> employeesInfoUnsorted;
+    // Sorted list of employee info strings
     private List<String> companyEmployeesInfoSorted;
 
-    // class constructor
+    /**
+     * Constructor that initializes the company with a name and CEO.
+     * Departments and their managers are generated automatically.
+     * Employees are collected and sorted upon instantiation.
+     *
+     * @param companyName name of the company
+     * @param ceoName name of the CEO
+     */
     public ITCompany(String companyName, String ceoName) {
         // two arguments are passed during instantiation
         this.companyName = companyName;
